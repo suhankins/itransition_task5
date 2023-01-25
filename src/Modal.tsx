@@ -15,7 +15,7 @@ export function Modal({ string }: modalParams) {
                         onClick={() => setOpen(!open)}
                         className="close"></a>
                     <h3>Here's your table as CSV</h3>
-                    <textarea value={string}></textarea>
+                    <textarea value={string} readOnly></textarea>
                     <button onClick={() => navigator.clipboard.writeText(string)}>
                         Copy to clipboard
                     </button>
