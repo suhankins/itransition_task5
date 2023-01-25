@@ -3,7 +3,7 @@ import { ChangeEvent, Dispatch, useState } from 'react';
 import { UserList } from './UserList';
 
 export function App() {
-    const [locale, setLocale] = useState('en_US' as UsableLocale);
+    const [locale, setLocale] = useState('en_AU' as UsableLocale);
     const [typoRate, setTypoRate] = useState(0);
     const [seed, setSeed] = useState(0);
 
