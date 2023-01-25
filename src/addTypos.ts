@@ -62,7 +62,10 @@ export function addTypos(person: Person, typos: number = 0): Person {
     if (typos === 0) return person;
     while (typos > 0) {
         if (typos < 1) {
-            if (faker.datatype.float(1) > typos) {
+            if (
+                faker.datatype.float({ min: 0, max: 1, precision: 0.01 }) >
+                typos
+            ) {
                 break;
             }
         }
