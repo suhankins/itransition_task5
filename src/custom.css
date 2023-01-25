@@ -5,3 +5,16 @@ h1 {
 td.short {
     width: min-content;
 }
+
+.saveasCSV {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: auto;
+    background-color: gray;
+    border-color: gray;
+}
+
+textarea {
+    width: 100%;
+}

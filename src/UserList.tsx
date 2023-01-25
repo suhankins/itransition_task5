@@ -1,7 +1,9 @@
 import { faker, UsableLocale } from '@faker-js/faker';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { generateAddress } from './AddressGenerator';
 import { addTypos } from './addTypos';
+import { formatToCSV } from './csvFormatter';
+import { Modal } from './Modal';
 import { Person } from './Person';
 import { useScrollPosition } from './useScrollPosition';
 
@@ -33,7 +35,7 @@ export function UserList({ locale, seed, typos }: UserListParameters) {
         }
         tempUserList.map((person) => {
             return addTypos(person, typos);
-        })
+        });
         setPeopleList(tempUserList);
     }
 
@@ -50,29 +52,32 @@ export function UserList({ locale, seed, typos }: UserListParameters) {
     useEffect(generatePeopleList, [locale, seed, typos]);
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Index</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Full name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Phone number</th>
-                </tr>
-            </thead>
-            <tbody>
-                {peopleList.map((person, index) => {
-                    return (
-                        <tr key={index}>
-                            <td scope="row">{index + 1}</td>
-                            <td className="short">{person.UUID}</td>
-                            <td>{person.fullName}</td>
-                            <td>{person.address}</td>
-                            <td>{person.phone}</td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Index</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {peopleList.map((person, index) => {
+                        return (
+                            <tr key={index}>
+                                <td scope="row">{index + 1}</td>
+                                <td className="short">{person.UUID}</td>
+                                <td>{person.fullName}</td>
+                                <td>{person.address}</td>
+                                <td>{person.phone}</td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+            <Modal string={formatToCSV(peopleList)} />
+        </>
     );
 }
