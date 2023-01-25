@@ -15,14 +15,14 @@ const typoType = [
             min: 0,
             max: value.length - 2,
         });
-        const letter = value[chosenLetter];
-        const nextLetter = value[chosenLetter + 1];
+        const letter = value.at(chosenLetter);
+        const nextLetter = value.at(chosenLetter + 1);
 
         return (
             value.slice(0, chosenLetter) +
             nextLetter +
             letter +
-            value.slice(chosenLetter + 1, value.length)
+            value.slice(chosenLetter + 2, value.length)
         );
     },
     (value: string) => {
