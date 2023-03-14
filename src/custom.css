@@ -17,4 +17,9 @@ td.short {
 
 textarea {
     width: 100%;
+    max-width: 100%;
+}
+
+.w-full {
+    width: 100%;
 }

@@ -8,15 +8,18 @@ export function Modal({ string }: modalParams) {
     return (
         <>
             <dialog open={open}>
-                <article>
+                <article className="w-full">
                     <a
                         href="#close"
                         aria-label="Close"
                         onClick={() => setOpen(!open)}
-                        className="close"></a>
+                        className="close"
+                    />
                     <h3>Here's your table as CSV</h3>
-                    <textarea value={string} readOnly></textarea>
-                    <button onClick={() => navigator.clipboard.writeText(string)}>
+                    <textarea value={string} readOnly />
+                    <button
+                        onClick={() => navigator.clipboard.writeText(string)}
+                    >
                         Copy to clipboard
                     </button>
                 </article>
