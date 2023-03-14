@@ -4,8 +4,8 @@ import { UserList } from './UserList';
 
 export function App() {
     const [locale, setLocale] = useState('en_AU' as UsableLocale);
-    const [typoRate, setTypoRate] = useState(0);
-    const [seed, setSeed] = useState(0);
+    const [typoRate, setTypoRate] = useState(0 as number | undefined);
+    const [seed, setSeed] = useState(0 as number | undefined);
 
     function getRandomSeed() {
         return Math.round(Math.random() * 2_147_483_647);
@@ -17,14 +17,18 @@ export function App() {
     }
 
     function getChangeHandlerNumber(
-        setter: Dispatch<number>,
+        setter: Dispatch<number | undefined>,
         float?: boolean,
         min?: number,
         max?: number
     ) {
         return (event: ChangeEvent) => {
             const target = event.target as HTMLInputElement;
-            let value = float
+            if (target.value === '') {
+                setter(undefined);
+                return;
+            }
+            let value: number | undefined = float
                 ? parseFloat(target.value)
                 : parseInt(target.value);
             if (isNaN(value)) value = min ?? 0;
@@ -55,31 +59,36 @@ export function App() {
                         Typos
                         <input
                             type="range"
+                            placeholder="0"
                             step="0.1"
                             min="0"
                             max="10"
                             value={typoRate}
-                            onChange={typoRateHandler}></input>
+                            onChange={typoRateHandler}
+                        ></input>
                         <input
                             type="number"
+                            placeholder="0"
                             min="0"
                             max="10000"
                             value={typoRate}
-                            onChange={typoRateHandler}></input>
+                            onChange={typoRateHandler}
+                        ></input>
                     </label>
                     <label>
                         Seed
                         <input
                             type="number"
                             value={seed}
-                            onChange={getChangeHandlerNumber(setSeed)}></input>
+                            onChange={getChangeHandlerNumber(setSeed)}
+                        ></input>
                         <button onClick={() => setSeed(getRandomSeed())}>
                             Random
                         </button>
                     </label>
                 </div>
             </article>
-            <UserList seed={seed} locale={locale} typos={typoRate} />
+            <UserList seed={seed ?? 0} locale={locale} typos={typoRate ?? 0} />
         </div>
     );
 }
